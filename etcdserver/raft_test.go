@@ -21,12 +21,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/etcdserver/api/membership"
-	"github.com/coreos/etcd/pkg/mock/mockstorage"
-	"github.com/coreos/etcd/pkg/pbutil"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/raft"
-	"github.com/coreos/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/membership"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/mock/mockstorage"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/pbutil"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
+	"github.com/vijaykarthik-rubrik/etcd/raft"
+	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
 
 	"go.uber.org/zap"
 )

@@ -19,7 +19,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/coreos/etcd/pkg/types"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
 )
 
 // URLsValue wraps "types.URLs".

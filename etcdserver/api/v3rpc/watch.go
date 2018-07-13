@@ -21,12 +21,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/coreos/etcd/auth"
-	"github.com/coreos/etcd/etcdserver"
-	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/mvcc"
-	"github.com/coreos/etcd/mvcc/mvccpb"
+	"github.com/vijaykarthik-rubrik/etcd/auth"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/v3rpc/rpctypes"
+	pb "github.com/vijaykarthik-rubrik/etcd/etcdserver/etcdserverpb"
+	"github.com/vijaykarthik-rubrik/etcd/mvcc"
+	"github.com/vijaykarthik-rubrik/etcd/mvcc/mvccpb"
 
 	"go.uber.org/zap"
 )

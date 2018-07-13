@@ -15,7 +15,7 @@
 package balancer
 
 import (
-	"github.com/coreos/etcd/clientv3/balancer/picker"
+	"github.com/vijaykarthik-rubrik/etcd/clientv3/balancer/picker"
 
 	"go.uber.org/zap"
 )

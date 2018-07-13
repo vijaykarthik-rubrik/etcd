@@ -21,7 +21,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/coreos/etcd/etcdserver"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver"
 )
 
 const etcdProcessBasePort = 20000

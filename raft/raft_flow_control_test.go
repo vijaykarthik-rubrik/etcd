@@ -17,7 +17,7 @@ package raft
 import (
 	"testing"
 
-	pb "github.com/coreos/etcd/raft/raftpb"
+	pb "github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
 )
 
 // TestMsgAppFlowControlFull ensures:

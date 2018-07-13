@@ -20,8 +20,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/integration"
-	"github.com/coreos/etcd/pkg/testutil"
+	"github.com/vijaykarthik-rubrik/etcd/integration"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/testutil"
 )
 
 var endpoints []string

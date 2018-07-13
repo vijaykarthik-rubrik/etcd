@@ -20,10 +20,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/etcdserver"
-	"github.com/coreos/etcd/etcdserver/api/v2error"
-	"github.com/coreos/etcd/etcdserver/api/v2store"
-	"github.com/coreos/etcd/etcdserver/etcdserverpb"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/v2error"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/v2store"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/etcdserverpb"
 
 	"go.uber.org/zap"
 )

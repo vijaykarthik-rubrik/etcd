@@ -19,9 +19,9 @@ import (
 	"errors"
 	"fmt"
 
-	v3 "github.com/coreos/etcd/clientv3"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/mvcc/mvccpb"
+	v3 "github.com/vijaykarthik-rubrik/etcd/clientv3"
+	pb "github.com/vijaykarthik-rubrik/etcd/etcdserver/etcdserverpb"
+	"github.com/vijaykarthik-rubrik/etcd/mvcc/mvccpb"
 )
 
 var (

@@ -21,8 +21,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/coreos/etcd/raft/raftpb"
-	"github.com/coreos/etcd/wal/walpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/wal/walpb"
 
 	"go.uber.org/zap"
 )

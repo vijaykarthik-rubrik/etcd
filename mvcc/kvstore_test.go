@@ -26,11 +26,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/lease"
-	"github.com/coreos/etcd/mvcc/backend"
-	"github.com/coreos/etcd/mvcc/mvccpb"
-	"github.com/coreos/etcd/pkg/schedule"
-	"github.com/coreos/etcd/pkg/testutil"
+	"github.com/vijaykarthik-rubrik/etcd/lease"
+	"github.com/vijaykarthik-rubrik/etcd/mvcc/backend"
+	"github.com/vijaykarthik-rubrik/etcd/mvcc/mvccpb"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/schedule"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/testutil"
 
 	"go.uber.org/zap"
 )

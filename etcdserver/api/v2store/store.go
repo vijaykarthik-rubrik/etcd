@@ -23,8 +23,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/coreos/etcd/etcdserver/api/v2error"
-	"github.com/coreos/etcd/pkg/types"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/v2error"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
 
 	"github.com/jonboulle/clockwork"
 )

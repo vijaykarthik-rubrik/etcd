@@ -18,9 +18,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/etcdserver/api/v2error"
-	"github.com/coreos/etcd/etcdserver/api/v2store"
-	"github.com/coreos/etcd/pkg/testutil"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/v2error"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/v2store"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/testutil"
 )
 
 type StoreCloser interface {

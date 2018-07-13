@@ -20,13 +20,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/coreos/etcd/etcdserver/api/snap"
-	stats "github.com/coreos/etcd/etcdserver/api/v2stats"
-	"github.com/coreos/etcd/pkg/logutil"
-	"github.com/coreos/etcd/pkg/transport"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/raft"
-	"github.com/coreos/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/snap"
+	stats "github.com/vijaykarthik-rubrik/etcd/etcdserver/api/v2stats"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/logutil"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/transport"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
+	"github.com/vijaykarthik-rubrik/etcd/raft"
+	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
 
 	"github.com/coreos/pkg/capnslog"
 	"github.com/xiang90/probing"
@@ -34,7 +34,7 @@ import (
 	"golang.org/x/time/rate"
 )
 
-var plog = logutil.NewMergeLogger(capnslog.NewPackageLogger("github.com/coreos/etcd", "rafthttp"))
+var plog = logutil.NewMergeLogger(capnslog.NewPackageLogger("github.com/vijaykarthik-rubrik/etcd", "rafthttp"))
 
 type Raft interface {
 	Process(ctx context.Context, m raftpb.Message) error

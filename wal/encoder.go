@@ -21,9 +21,9 @@ import (
 	"os"
 	"sync"
 
-	"github.com/coreos/etcd/pkg/crc"
-	"github.com/coreos/etcd/pkg/ioutil"
-	"github.com/coreos/etcd/wal/walpb"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/crc"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/ioutil"
+	"github.com/vijaykarthik-rubrik/etcd/wal/walpb"
 )
 
 // walPageBytes is the alignment for flushing records to the backing Writer.

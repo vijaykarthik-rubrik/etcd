@@ -21,11 +21,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/clientv3"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/integration"
-	"github.com/coreos/etcd/pkg/testutil"
-	"github.com/coreos/etcd/pkg/transport"
+	"github.com/vijaykarthik-rubrik/etcd/clientv3"
+	pb "github.com/vijaykarthik-rubrik/etcd/etcdserver/etcdserverpb"
+	"github.com/vijaykarthik-rubrik/etcd/integration"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/testutil"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/transport"
 	"google.golang.org/grpc"
 )
 

@@ -27,10 +27,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/coreos/etcd/embed"
-	"github.com/coreos/etcd/pkg/flags"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/version"
+	"github.com/vijaykarthik-rubrik/etcd/embed"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/flags"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
+	"github.com/vijaykarthik-rubrik/etcd/version"
 
 	"github.com/ghodss/yaml"
 	"go.uber.org/zap"

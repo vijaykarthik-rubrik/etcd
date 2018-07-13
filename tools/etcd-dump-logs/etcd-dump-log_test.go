@@ -24,12 +24,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/coreos/etcd/auth/authpb"
-	"github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/pkg/fileutil"
-	"github.com/coreos/etcd/pkg/pbutil"
-	"github.com/coreos/etcd/raft/raftpb"
-	"github.com/coreos/etcd/wal"
+	"github.com/vijaykarthik-rubrik/etcd/auth/authpb"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/etcdserverpb"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/fileutil"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/pbutil"
+	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/wal"
 	"go.uber.org/zap"
 )
 

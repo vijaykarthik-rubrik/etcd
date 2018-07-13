@@ -22,8 +22,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/coreos/etcd/client"
-	"github.com/coreos/etcd/pkg/testutil"
+	"github.com/vijaykarthik-rubrik/etcd/client"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/testutil"
 )
 
 func TestPauseMember(t *testing.T) {

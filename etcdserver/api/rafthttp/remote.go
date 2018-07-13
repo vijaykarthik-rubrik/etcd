@@ -15,8 +15,8 @@
 package rafthttp
 
 import (
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
+	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
 
 	"go.uber.org/zap"
 )

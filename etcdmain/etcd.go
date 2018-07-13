@@ -26,17 +26,17 @@ import (
 	"strings"
 	"time"
 
-	"github.com/coreos/etcd/embed"
-	"github.com/coreos/etcd/etcdserver"
-	"github.com/coreos/etcd/etcdserver/api/etcdhttp"
-	"github.com/coreos/etcd/etcdserver/api/v2discovery"
-	"github.com/coreos/etcd/pkg/fileutil"
-	pkgioutil "github.com/coreos/etcd/pkg/ioutil"
-	"github.com/coreos/etcd/pkg/osutil"
-	"github.com/coreos/etcd/pkg/transport"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/proxy/httpproxy"
-	"github.com/coreos/etcd/version"
+	"github.com/vijaykarthik-rubrik/etcd/embed"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/etcdhttp"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/v2discovery"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/fileutil"
+	pkgioutil "github.com/vijaykarthik-rubrik/etcd/pkg/ioutil"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/osutil"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/transport"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
+	"github.com/vijaykarthik-rubrik/etcd/proxy/httpproxy"
+	"github.com/vijaykarthik-rubrik/etcd/version"
 
 	"github.com/coreos/pkg/capnslog"
 	"go.uber.org/zap"
@@ -45,7 +45,7 @@ import (
 
 type dirType string
 
-var plog = capnslog.NewPackageLogger("github.com/coreos/etcd", "etcdmain")
+var plog = capnslog.NewPackageLogger("github.com/vijaykarthik-rubrik/etcd", "etcdmain")
 
 var (
 	dirMember = dirType("member")

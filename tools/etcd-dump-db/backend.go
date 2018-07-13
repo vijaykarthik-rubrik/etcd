@@ -19,10 +19,10 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/coreos/etcd/lease/leasepb"
-	"github.com/coreos/etcd/mvcc"
-	"github.com/coreos/etcd/mvcc/backend"
-	"github.com/coreos/etcd/mvcc/mvccpb"
+	"github.com/vijaykarthik-rubrik/etcd/lease/leasepb"
+	"github.com/vijaykarthik-rubrik/etcd/mvcc"
+	"github.com/vijaykarthik-rubrik/etcd/mvcc/backend"
+	"github.com/vijaykarthik-rubrik/etcd/mvcc/mvccpb"
 
 	bolt "github.com/coreos/bbolt"
 )
@@ -111,7 +111,7 @@ func iterateBucket(dbPath, bucket string, limit uint64, decode bool) (err error)
 		// iterate in reverse order (use First() and Next() for ascending order)
 		for k, v := c.Last(); k != nil; k, v = c.Prev() {
 			// TODO: remove sensitive information
-			// (https://github.com/coreos/etcd/issues/7620)
+			// (https://github.com/vijaykarthik-rubrik/etcd/issues/7620)
 			if dec, ok := decoders[bucket]; decode && ok {
 				dec(k, v)
 			} else {

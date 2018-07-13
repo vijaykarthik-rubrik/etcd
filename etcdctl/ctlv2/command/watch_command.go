@@ -21,7 +21,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/coreos/etcd/client"
+	"github.com/vijaykarthik-rubrik/etcd/client"
 
 	"github.com/urfave/cli"
 )

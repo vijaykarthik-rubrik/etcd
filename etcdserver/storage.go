@@ -17,13 +17,13 @@ package etcdserver
 import (
 	"io"
 
-	"github.com/coreos/etcd/etcdserver/api/snap"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/pkg/pbutil"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/raft/raftpb"
-	"github.com/coreos/etcd/wal"
-	"github.com/coreos/etcd/wal/walpb"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/snap"
+	pb "github.com/vijaykarthik-rubrik/etcd/etcdserver/etcdserverpb"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/pbutil"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
+	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/wal"
+	"github.com/vijaykarthik-rubrik/etcd/wal/walpb"
 
 	"go.uber.org/zap"
 )

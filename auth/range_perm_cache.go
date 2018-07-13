@@ -15,9 +15,9 @@
 package auth
 
 import (
-	"github.com/coreos/etcd/auth/authpb"
-	"github.com/coreos/etcd/mvcc/backend"
-	"github.com/coreos/etcd/pkg/adt"
+	"github.com/vijaykarthik-rubrik/etcd/auth/authpb"
+	"github.com/vijaykarthik-rubrik/etcd/mvcc/backend"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/adt"
 
 	"go.uber.org/zap"
 )

@@ -18,8 +18,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/coreos/etcd/clientv3"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
+	"github.com/vijaykarthik-rubrik/etcd/clientv3"
+	pb "github.com/vijaykarthik-rubrik/etcd/etcdserver/etcdserverpb"
 )
 
 // watchBroadcast broadcasts a server watcher to many client watchers.

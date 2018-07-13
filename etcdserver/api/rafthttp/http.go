@@ -23,11 +23,11 @@ import (
 	"path"
 	"strings"
 
-	"github.com/coreos/etcd/etcdserver/api/snap"
-	pioutil "github.com/coreos/etcd/pkg/ioutil"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/raft/raftpb"
-	"github.com/coreos/etcd/version"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/snap"
+	pioutil "github.com/vijaykarthik-rubrik/etcd/pkg/ioutil"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
+	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/version"
 
 	humanize "github.com/dustin/go-humanize"
 	"go.uber.org/zap"

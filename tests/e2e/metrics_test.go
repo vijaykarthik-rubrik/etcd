@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/coreos/etcd/version"
+	"github.com/vijaykarthik-rubrik/etcd/version"
 )
 
 func TestV3MetricsSecure(t *testing.T) {

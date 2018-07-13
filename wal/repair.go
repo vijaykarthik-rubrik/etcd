@@ -19,8 +19,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/coreos/etcd/pkg/fileutil"
-	"github.com/coreos/etcd/wal/walpb"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/fileutil"
+	"github.com/vijaykarthik-rubrik/etcd/wal/walpb"
 
 	"go.uber.org/zap"
 )

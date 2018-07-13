@@ -25,12 +25,12 @@ import (
 	"sync"
 	"time"
 
-	stats "github.com/coreos/etcd/etcdserver/api/v2stats"
-	"github.com/coreos/etcd/pkg/httputil"
-	"github.com/coreos/etcd/pkg/transport"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/raft/raftpb"
-	"github.com/coreos/etcd/version"
+	stats "github.com/vijaykarthik-rubrik/etcd/etcdserver/api/v2stats"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/httputil"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/transport"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
+	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/version"
 
 	"github.com/coreos/go-semver/semver"
 	"go.uber.org/zap"

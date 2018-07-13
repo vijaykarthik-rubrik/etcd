@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/coreos/etcd/embed"
+	"github.com/vijaykarthik-rubrik/etcd/embed"
 	"golang.org/x/crypto/bcrypt"
 )
 

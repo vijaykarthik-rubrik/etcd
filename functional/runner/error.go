@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/coreos/etcd/client"
+	"github.com/vijaykarthik-rubrik/etcd/client"
 )
 
 const (

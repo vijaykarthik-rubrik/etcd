@@ -27,14 +27,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/coreos/etcd/etcdserver"
-	"github.com/coreos/etcd/etcdserver/api/v3compactor"
-	"github.com/coreos/etcd/pkg/flags"
-	"github.com/coreos/etcd/pkg/netutil"
-	"github.com/coreos/etcd/pkg/srv"
-	"github.com/coreos/etcd/pkg/tlsutil"
-	"github.com/coreos/etcd/pkg/transport"
-	"github.com/coreos/etcd/pkg/types"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver"
+	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/v3compactor"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/flags"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/netutil"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/srv"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/tlsutil"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/transport"
+	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
 
 	"github.com/ghodss/yaml"
 	"go.uber.org/zap"
@@ -162,7 +162,7 @@ type Config struct {
 	//
 	// If single-node, it advances ticks regardless.
 	//
-	// See https://github.com/coreos/etcd/issues/9333 for more detail.
+	// See https://github.com/vijaykarthik-rubrik/etcd/issues/9333 for more detail.
 	InitialElectionTickAdvance bool `json:"initial-election-tick-advance"`
 
 	QuotaBackendBytes int64 `json:"quota-backend-bytes"`
@@ -246,7 +246,7 @@ type Config struct {
 	// CVE-2018-5702 reference:
 	// - https://bugs.chromium.org/p/project-zero/issues/detail?id=1447#c2
 	// - https://github.com/transmission/transmission/pull/468
-	// - https://github.com/coreos/etcd/issues/9353
+	// - https://github.com/vijaykarthik-rubrik/etcd/issues/9353
 	HostWhitelist map[string]struct{}
 
 	// UserHandlers is for registering users handlers and only used for
