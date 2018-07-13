@@ -28,7 +28,7 @@ import (
 	"github.com/vijaykarthik-rubrik/etcd/pkg/fileutil"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/pbutil"
 	"github.com/vijaykarthik-rubrik/etcd/raft"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 	"github.com/vijaykarthik-rubrik/etcd/wal/walpb"
 
 	"github.com/coreos/pkg/capnslog"
@@ -77,8 +77,8 @@ type WAL struct {
 	// dirFile is a fd for the wal directory for syncing on Rename
 	dirFile *os.File
 
-	metadata []byte           // metadata recorded at the head of each WAL
-	state    raftpb.HardState // hardstate recorded at the head of WAL
+	metadata []byte             // metadata recorded at the head of each WAL
+	state    sdraftpb.HardState // hardstate recorded at the head of WAL
 
 	start     walpb.Snapshot // snapshot to start reading
 	decoder   *decoder       // decoder to decode records
@@ -371,7 +371,7 @@ func openAtIndex(lg *zap.Logger, dirpath string, snap walpb.Snapshot, write bool
 // TODO: detect not-last-snap error.
 // TODO: maybe loose the checking of match.
 // After ReadAll, the WAL will be ready for appending new records.
-func (w *WAL) ReadAll() (metadata []byte, state raftpb.HardState, ents []raftpb.Entry, err error) {
+func (w *WAL) ReadAll() (metadata []byte, state sdraftpb.HardState, ents []sdraftpb.Entry, err error) {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 
@@ -673,7 +673,7 @@ func (w *WAL) Close() error {
 	return w.dirFile.Close()
 }
 
-func (w *WAL) saveEntry(e *raftpb.Entry) error {
+func (w *WAL) saveEntry(e *sdraftpb.Entry) error {
 	// TODO: add MustMarshalTo to reduce one allocation.
 	b := pbutil.MustMarshal(e)
 	rec := &walpb.Record{Type: entryType, Data: b}
@@ -684,7 +684,7 @@ func (w *WAL) saveEntry(e *raftpb.Entry) error {
 	return nil
 }
 
-func (w *WAL) saveState(s *raftpb.HardState) error {
+func (w *WAL) saveState(s *sdraftpb.HardState) error {
 	if raft.IsEmptyHardState(*s) {
 		return nil
 	}
@@ -694,7 +694,7 @@ func (w *WAL) saveState(s *raftpb.HardState) error {
 	return w.encoder.encode(rec)
 }
 
-func (w *WAL) Save(st raftpb.HardState, ents []raftpb.Entry) error {
+func (w *WAL) Save(st sdraftpb.HardState, ents []sdraftpb.Entry) error {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 

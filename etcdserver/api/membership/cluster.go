@@ -32,7 +32,7 @@ import (
 	"github.com/vijaykarthik-rubrik/etcd/pkg/netutil"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
 	"github.com/vijaykarthik-rubrik/etcd/raft"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 	"github.com/vijaykarthik-rubrik/etcd/version"
 
 	"github.com/coreos/go-semver/semver"
@@ -251,14 +251,14 @@ func (c *RaftCluster) Recover(onSet func(*zap.Logger, *semver.Version)) {
 
 // ValidateConfigurationChange takes a proposed ConfChange and
 // ensures that it is still valid.
-func (c *RaftCluster) ValidateConfigurationChange(cc raftpb.ConfChange) error {
+func (c *RaftCluster) ValidateConfigurationChange(cc sdraftpb.ConfChange) error {
 	members, removed := membersFromStore(c.lg, c.v2store)
 	id := types.ID(cc.NodeID)
 	if removed[id] {
 		return ErrIDRemoved
 	}
 	switch cc.Type {
-	case raftpb.ConfChangeAddNode:
+	case sdraftpb.ConfChangeAddNode:
 		if members[id] != nil {
 			return ErrIDExists
 		}
@@ -282,12 +282,12 @@ func (c *RaftCluster) ValidateConfigurationChange(cc raftpb.ConfChange) error {
 			}
 		}
 
-	case raftpb.ConfChangeRemoveNode:
+	case sdraftpb.ConfChangeRemoveNode:
 		if members[id] == nil {
 			return ErrIDNotFound
 		}
 
-	case raftpb.ConfChangeUpdateNode:
+	case sdraftpb.ConfChangeUpdateNode:
 		if members[id] == nil {
 			return ErrIDNotFound
 		}

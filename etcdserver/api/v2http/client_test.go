@@ -38,7 +38,7 @@ import (
 	"github.com/vijaykarthik-rubrik/etcd/etcdserver/etcdserverpb"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/testutil"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 
 	"github.com/coreos/go-semver/semver"
 	"github.com/jonboulle/clockwork"
@@ -114,7 +114,7 @@ func (s *serverRecorder) Do(_ context.Context, r etcdserverpb.Request) (etcdserv
 	s.actions = append(s.actions, action{name: "Do", params: []interface{}{r}})
 	return etcdserver.Response{}, nil
 }
-func (s *serverRecorder) Process(_ context.Context, m raftpb.Message) error {
+func (s *serverRecorder) Process(_ context.Context, m sdraftpb.Message) error {
 	s.actions = append(s.actions, action{name: "Process", params: []interface{}{m}})
 	return nil
 }
@@ -158,7 +158,7 @@ type resServer struct {
 func (rs *resServer) Do(_ context.Context, _ etcdserverpb.Request) (etcdserver.Response, error) {
 	return rs.res, nil
 }
-func (rs *resServer) Process(_ context.Context, _ raftpb.Message) error { return nil }
+func (rs *resServer) Process(_ context.Context, _ sdraftpb.Message) error { return nil }
 func (rs *resServer) AddMember(_ context.Context, _ membership.Member) ([]*membership.Member, error) {
 	return nil, nil
 }

@@ -28,7 +28,7 @@ import (
 	"github.com/vijaykarthik-rubrik/etcd/etcdserver/etcdserverpb"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/fileutil"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/pbutil"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 	"github.com/vijaykarthik-rubrik/etcd/wal"
 	"go.uber.org/zap"
 )
@@ -72,7 +72,7 @@ func TestEtcdDumpLogEntryType(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	ents := make([]raftpb.Entry, 0)
+	ents := make([]sdraftpb.Entry, 0)
 
 	// append entries into wal log
 	appendConfigChangeEnts(&ents)
@@ -81,7 +81,7 @@ func TestEtcdDumpLogEntryType(t *testing.T) {
 	appendUnknownNormalEnts(&ents)
 
 	// force commit newly appended entries
-	err = w.Save(raftpb.HardState{}, ents)
+	err = w.Save(sdraftpb.HardState{}, ents)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -135,23 +135,23 @@ func TestEtcdDumpLogEntryType(t *testing.T) {
 
 }
 
-func appendConfigChangeEnts(ents *[]raftpb.Entry) {
-	configChangeData := []raftpb.ConfChange{
-		{ID: 1, Type: raftpb.ConfChangeAddNode, NodeID: 2, Context: []byte("")},
-		{ID: 2, Type: raftpb.ConfChangeRemoveNode, NodeID: 2, Context: []byte("")},
-		{ID: 3, Type: raftpb.ConfChangeUpdateNode, NodeID: 2, Context: []byte("")},
-		{ID: 4, Type: raftpb.ConfChangeAddLearnerNode, NodeID: 3, Context: []byte("")},
+func appendConfigChangeEnts(ents *[]sdraftpb.Entry) {
+	configChangeData := []sdraftpb.ConfChange{
+		{ID: 1, Type: sdraftpb.ConfChangeAddNode, NodeID: 2, Context: []byte("")},
+		{ID: 2, Type: sdraftpb.ConfChangeRemoveNode, NodeID: 2, Context: []byte("")},
+		{ID: 3, Type: sdraftpb.ConfChangeUpdateNode, NodeID: 2, Context: []byte("")},
+		{ID: 4, Type: sdraftpb.ConfChangeAddLearnerNode, NodeID: 3, Context: []byte("")},
 	}
-	configChangeEntries := []raftpb.Entry{
-		{Term: 1, Index: 1, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(&configChangeData[0])},
-		{Term: 2, Index: 2, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(&configChangeData[1])},
-		{Term: 2, Index: 3, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(&configChangeData[2])},
-		{Term: 2, Index: 4, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(&configChangeData[3])},
+	configChangeEntries := []sdraftpb.Entry{
+		{Term: 1, Index: 1, Type: sdraftpb.EntryConfChange, Data: pbutil.MustMarshal(&configChangeData[0])},
+		{Term: 2, Index: 2, Type: sdraftpb.EntryConfChange, Data: pbutil.MustMarshal(&configChangeData[1])},
+		{Term: 2, Index: 3, Type: sdraftpb.EntryConfChange, Data: pbutil.MustMarshal(&configChangeData[2])},
+		{Term: 2, Index: 4, Type: sdraftpb.EntryConfChange, Data: pbutil.MustMarshal(&configChangeData[3])},
 	}
 	*ents = append(*ents, configChangeEntries...)
 }
 
-func appendNormalRequestEnts(ents *[]raftpb.Entry) {
+func appendNormalRequestEnts(ents *[]sdraftpb.Entry) {
 	a := true
 	b := false
 
@@ -164,16 +164,16 @@ func appendNormalRequestEnts(ents *[]raftpb.Entry) {
 	}
 
 	for i, request := range requests {
-		var currentry raftpb.Entry
+		var currentry sdraftpb.Entry
 		currentry.Term = 3
 		currentry.Index = uint64(i + 5)
-		currentry.Type = raftpb.EntryNormal
+		currentry.Type = sdraftpb.EntryNormal
 		currentry.Data = pbutil.MustMarshal(&request)
 		*ents = append(*ents, currentry)
 	}
 }
 
-func appendNormalIRREnts(ents *[]raftpb.Entry) {
+func appendNormalIRREnts(ents *[]sdraftpb.Entry) {
 	irrrange := &etcdserverpb.RangeRequest{Key: []byte("1"), RangeEnd: []byte("hi"), Limit: 6, Revision: 1, SortOrder: 1, SortTarget: 0, Serializable: false, KeysOnly: false, CountOnly: false, MinModRevision: 0, MaxModRevision: 20000, MinCreateRevision: 0, MaxCreateRevision: 20000}
 
 	irrput := &etcdserverpb.PutRequest{Key: []byte("foo1"), Value: []byte("bar1"), Lease: 1, PrevKv: false, IgnoreValue: false, IgnoreLease: true}
@@ -263,20 +263,20 @@ func appendNormalIRREnts(ents *[]raftpb.Entry) {
 	}
 
 	for i, irr := range irrs {
-		var currentry raftpb.Entry
+		var currentry sdraftpb.Entry
 		currentry.Term = uint64(i + 4)
 		currentry.Index = uint64(i + 10)
-		currentry.Type = raftpb.EntryNormal
+		currentry.Type = sdraftpb.EntryNormal
 		currentry.Data = pbutil.MustMarshal(&irr)
 		*ents = append(*ents, currentry)
 	}
 }
 
-func appendUnknownNormalEnts(ents *[]raftpb.Entry) {
-	var currentry raftpb.Entry
+func appendUnknownNormalEnts(ents *[]sdraftpb.Entry) {
+	var currentry sdraftpb.Entry
 	currentry.Term = 27
 	currentry.Index = 34
-	currentry.Type = raftpb.EntryNormal
+	currentry.Type = sdraftpb.EntryNormal
 	currentry.Data = []byte("?")
 	*ents = append(*ents, currentry)
 }

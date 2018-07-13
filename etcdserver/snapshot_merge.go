@@ -19,7 +19,7 @@ import (
 
 	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/snap"
 	"github.com/vijaykarthik-rubrik/etcd/mvcc/backend"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 
 	humanize "github.com/dustin/go-humanize"
 	"go.uber.org/zap"
@@ -28,7 +28,7 @@ import (
 // createMergedSnapshotMessage creates a snapshot message that contains: raft status (term, conf),
 // a snapshot of v2 store inside raft.Snapshot as []byte, a snapshot of v3 KV in the top level message
 // as ReadCloser.
-func (s *EtcdServer) createMergedSnapshotMessage(m raftpb.Message, snapt, snapi uint64, confState raftpb.ConfState) snap.Message {
+func (s *EtcdServer) createMergedSnapshotMessage(m sdraftpb.Message, snapt, snapi uint64, confState sdraftpb.ConfState) snap.Message {
 	// get a snapshot of v2 store as []byte
 	clone := s.v2store.Clone()
 	d, err := clone.SaveNoCopy()
@@ -48,8 +48,8 @@ func (s *EtcdServer) createMergedSnapshotMessage(m raftpb.Message, snapt, snapi 
 
 	// put the []byte snapshot of store into raft snapshot and return the merged snapshot with
 	// KV readCloser snapshot.
-	snapshot := raftpb.Snapshot{
-		Metadata: raftpb.SnapshotMetadata{
+	snapshot := sdraftpb.Snapshot{
+		Metadata: sdraftpb.SnapshotMetadata{
 			Index:     snapi,
 			Term:      snapt,
 			ConfState: confState,

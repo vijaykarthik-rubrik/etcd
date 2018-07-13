@@ -27,7 +27,7 @@ import (
 	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/v2error"
 	"github.com/vijaykarthik-rubrik/etcd/etcdserver/etcdserverpb"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 
 	"github.com/coreos/go-semver/semver"
 	"go.uber.org/zap"
@@ -62,7 +62,7 @@ type errServer struct {
 func (fs *errServer) Do(ctx context.Context, r etcdserverpb.Request) (etcdserver.Response, error) {
 	return etcdserver.Response{}, fs.err
 }
-func (fs *errServer) Process(ctx context.Context, m raftpb.Message) error {
+func (fs *errServer) Process(ctx context.Context, m sdraftpb.Message) error {
 	return fs.err
 }
 func (fs *errServer) AddMember(ctx context.Context, m membership.Member) ([]*membership.Member, error) {

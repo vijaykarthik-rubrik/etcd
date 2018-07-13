@@ -25,7 +25,7 @@ import (
 	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/rafthttp"
 	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/snap"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 )
 
 func TestLongestConnected(t *testing.T) {
@@ -77,7 +77,7 @@ func newNopTransporterWithActiveTime(memberIDs []types.ID) rafthttp.Transporter 
 
 func (s *nopTransporterWithActiveTime) Start() error                        { return nil }
 func (s *nopTransporterWithActiveTime) Handler() http.Handler               { return nil }
-func (s *nopTransporterWithActiveTime) Send(m []raftpb.Message)             {}
+func (s *nopTransporterWithActiveTime) Send(m []sdraftpb.Message)           {}
 func (s *nopTransporterWithActiveTime) SendSnapshot(m snap.Message)         {}
 func (s *nopTransporterWithActiveTime) AddRemote(id types.ID, us []string)  {}
 func (s *nopTransporterWithActiveTime) AddPeer(id types.ID, us []string)    {}

@@ -24,7 +24,7 @@ import (
 	stats "github.com/vijaykarthik-rubrik/etcd/etcdserver/api/v2stats"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
 	"github.com/vijaykarthik-rubrik/etcd/raft"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 )
 
 func BenchmarkSendingMsgApp(b *testing.B) {
@@ -67,13 +67,13 @@ func BenchmarkSendingMsgApp(b *testing.B) {
 	b.ResetTimer()
 	data := make([]byte, 64)
 	for i := 0; i < b.N; i++ {
-		tr.Send([]raftpb.Message{
+		tr.Send([]sdraftpb.Message{
 			{
-				Type:  raftpb.MsgApp,
+				Type:  sdraftpb.MsgApp,
 				From:  1,
 				To:    2,
 				Index: uint64(i),
-				Entries: []raftpb.Entry{
+				Entries: []sdraftpb.Entry{
 					{
 						Index: uint64(i + 1),
 						Data:  data,
@@ -94,7 +94,7 @@ type countRaft struct {
 	cnt int
 }
 
-func (r *countRaft) Process(ctx context.Context, m raftpb.Message) error {
+func (r *countRaft) Process(ctx context.Context, m sdraftpb.Message) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	r.cnt++

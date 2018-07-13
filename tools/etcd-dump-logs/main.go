@@ -32,7 +32,7 @@ import (
 	"github.com/vijaykarthik-rubrik/etcd/etcdserver/etcdserverpb"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/pbutil"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 	"github.com/vijaykarthik-rubrik/etcd/wal"
 	"github.com/vijaykarthik-rubrik/etcd/wal/walpb"
 
@@ -63,7 +63,7 @@ func main() {
 
 	var (
 		walsnap  walpb.Snapshot
-		snapshot *raftpb.Snapshot
+		snapshot *sdraftpb.Snapshot
 		err      error
 	)
 
@@ -149,87 +149,87 @@ func excerpt(str string, pre, suf int) string {
 	return fmt.Sprintf("%q...%q", str[:pre], str[len(str)-suf:])
 }
 
-type EntryFilter func(e raftpb.Entry) (bool, string)
+type EntryFilter func(e sdraftpb.Entry) (bool, string)
 
 // The 9 pass functions below takes the raftpb.Entry and return if the entry should be printed and the type of entry,
 // the type of the entry will used in the following print function
-func passConfChange(entry raftpb.Entry) (bool, string) {
-	return entry.Type == raftpb.EntryConfChange, "ConfigChange"
+func passConfChange(entry sdraftpb.Entry) (bool, string) {
+	return entry.Type == sdraftpb.EntryConfChange, "ConfigChange"
 }
 
-func passInternalRaftRequest(entry raftpb.Entry) (bool, string) {
+func passInternalRaftRequest(entry sdraftpb.Entry) (bool, string) {
 	var rr etcdserverpb.InternalRaftRequest
-	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil, "InternalRaftRequest"
+	return entry.Type == sdraftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil, "InternalRaftRequest"
 }
 
-func passUnknownNormal(entry raftpb.Entry) (bool, string) {
+func passUnknownNormal(entry sdraftpb.Entry) (bool, string) {
 	var rr1 etcdserverpb.Request
 	var rr2 etcdserverpb.InternalRaftRequest
-	return (entry.Type == raftpb.EntryNormal) && (rr1.Unmarshal(entry.Data) != nil) && (rr2.Unmarshal(entry.Data) != nil), "UnknownNormal"
+	return (entry.Type == sdraftpb.EntryNormal) && (rr1.Unmarshal(entry.Data) != nil) && (rr2.Unmarshal(entry.Data) != nil), "UnknownNormal"
 }
 
-func passIRRRange(entry raftpb.Entry) (bool, string) {
+func passIRRRange(entry sdraftpb.Entry) (bool, string) {
 	var rr etcdserverpb.InternalRaftRequest
-	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.Range != nil, "InternalRaftRequest"
+	return entry.Type == sdraftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.Range != nil, "InternalRaftRequest"
 }
 
-func passIRRPut(entry raftpb.Entry) (bool, string) {
+func passIRRPut(entry sdraftpb.Entry) (bool, string) {
 	var rr etcdserverpb.InternalRaftRequest
-	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.Put != nil, "InternalRaftRequest"
+	return entry.Type == sdraftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.Put != nil, "InternalRaftRequest"
 }
 
-func passIRRDeleteRange(entry raftpb.Entry) (bool, string) {
+func passIRRDeleteRange(entry sdraftpb.Entry) (bool, string) {
 	var rr etcdserverpb.InternalRaftRequest
-	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.DeleteRange != nil, "InternalRaftRequest"
+	return entry.Type == sdraftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.DeleteRange != nil, "InternalRaftRequest"
 }
 
-func passIRRTxn(entry raftpb.Entry) (bool, string) {
+func passIRRTxn(entry sdraftpb.Entry) (bool, string) {
 	var rr etcdserverpb.InternalRaftRequest
-	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.Txn != nil, "InternalRaftRequest"
+	return entry.Type == sdraftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.Txn != nil, "InternalRaftRequest"
 }
 
-func passIRRCompaction(entry raftpb.Entry) (bool, string) {
+func passIRRCompaction(entry sdraftpb.Entry) (bool, string) {
 	var rr etcdserverpb.InternalRaftRequest
-	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.Compaction != nil, "InternalRaftRequest"
+	return entry.Type == sdraftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.Compaction != nil, "InternalRaftRequest"
 }
 
-func passIRRLeaseGrant(entry raftpb.Entry) (bool, string) {
+func passIRRLeaseGrant(entry sdraftpb.Entry) (bool, string) {
 	var rr etcdserverpb.InternalRaftRequest
-	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.LeaseGrant != nil, "InternalRaftRequest"
+	return entry.Type == sdraftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.LeaseGrant != nil, "InternalRaftRequest"
 }
 
-func passIRRLeaseRevoke(entry raftpb.Entry) (bool, string) {
+func passIRRLeaseRevoke(entry sdraftpb.Entry) (bool, string) {
 	var rr etcdserverpb.InternalRaftRequest
-	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.LeaseRevoke != nil, "InternalRaftRequest"
+	return entry.Type == sdraftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.LeaseRevoke != nil, "InternalRaftRequest"
 }
 
-func passRequest(entry raftpb.Entry) (bool, string) {
+func passRequest(entry sdraftpb.Entry) (bool, string) {
 	var rr1 etcdserverpb.Request
 	var rr2 etcdserverpb.InternalRaftRequest
-	return entry.Type == raftpb.EntryNormal && rr1.Unmarshal(entry.Data) == nil && rr2.Unmarshal(entry.Data) != nil, "Request"
+	return entry.Type == sdraftpb.EntryNormal && rr1.Unmarshal(entry.Data) == nil && rr2.Unmarshal(entry.Data) != nil, "Request"
 }
 
-type EntryPrinter func(e raftpb.Entry)
+type EntryPrinter func(e sdraftpb.Entry)
 
 // The 4 print functions below print the entry format based on there types
 
 // printInternalRaftRequest is used to print entry information for IRRRange, IRRPut,
 // IRRDeleteRange and IRRTxn entries
-func printInternalRaftRequest(entry raftpb.Entry) {
+func printInternalRaftRequest(entry sdraftpb.Entry) {
 	var rr etcdserverpb.InternalRaftRequest
 	if err := rr.Unmarshal(entry.Data); err == nil {
 		fmt.Printf("%4d\t%10d\tnorm\t%s", entry.Term, entry.Index, rr.String())
 	}
 }
 
-func printUnknownNormal(entry raftpb.Entry) {
+func printUnknownNormal(entry sdraftpb.Entry) {
 	fmt.Printf("%4d\t%10d\tnorm\t???", entry.Term, entry.Index)
 }
 
-func printConfChange(entry raftpb.Entry) {
+func printConfChange(entry sdraftpb.Entry) {
 	fmt.Printf("%4d\t%10d", entry.Term, entry.Index)
 	fmt.Printf("\tconf")
-	var r raftpb.ConfChange
+	var r sdraftpb.ConfChange
 	if err := r.Unmarshal(entry.Data); err != nil {
 		fmt.Printf("\t???")
 	} else {
@@ -237,7 +237,7 @@ func printConfChange(entry raftpb.Entry) {
 	}
 }
 
-func printRequest(entry raftpb.Entry) {
+func printRequest(entry sdraftpb.Entry) {
 	var r etcdserverpb.Request
 	if err := r.Unmarshal(entry.Data); err == nil {
 		fmt.Printf("%4d\t%10d\tnorm", entry.Term, entry.Index)
@@ -296,7 +296,7 @@ IRRCompaction, IRRLeaseGrant, IRRLeaseRevoke`, et)
 }
 
 //  listEntriesType filters and prints entries based on the entry-type flag,
-func listEntriesType(entrytype string, streamdecoder string, ents []raftpb.Entry) {
+func listEntriesType(entrytype string, streamdecoder string, ents []sdraftpb.Entry) {
 	entryFilters := evaluateEntrytypeFlag(entrytype)
 	printerMap := map[string]EntryPrinter{"InternalRaftRequest": printInternalRaftRequest,
 		"Request":       printRequest,

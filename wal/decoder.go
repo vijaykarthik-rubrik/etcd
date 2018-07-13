@@ -23,7 +23,7 @@ import (
 
 	"github.com/vijaykarthik-rubrik/etcd/pkg/crc"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/pbutil"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 	"github.com/vijaykarthik-rubrik/etcd/wal/walpb"
 )
 
@@ -169,14 +169,14 @@ func (d *decoder) lastCRC() uint32 {
 
 func (d *decoder) lastOffset() int64 { return d.lastValidOff }
 
-func mustUnmarshalEntry(d []byte) raftpb.Entry {
-	var e raftpb.Entry
+func mustUnmarshalEntry(d []byte) sdraftpb.Entry {
+	var e sdraftpb.Entry
 	pbutil.MustUnmarshal(&e, d)
 	return e
 }
 
-func mustUnmarshalState(d []byte) raftpb.HardState {
-	var s raftpb.HardState
+func mustUnmarshalState(d []byte) sdraftpb.HardState {
+	var s sdraftpb.HardState
 	pbutil.MustUnmarshal(&s, d)
 	return s
 }

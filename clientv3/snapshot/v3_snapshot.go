@@ -39,7 +39,7 @@ import (
 	"github.com/vijaykarthik-rubrik/etcd/pkg/fileutil"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
 	"github.com/vijaykarthik-rubrik/etcd/raft"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 	"github.com/vijaykarthik-rubrik/etcd/wal"
 	"github.com/vijaykarthik-rubrik/etcd/wal/walpb"
 
@@ -433,12 +433,12 @@ func (s *v3Manager) saveWALAndSnap() error {
 		peers[i] = raft.Peer{ID: uint64(id), Context: ctx}
 	}
 
-	ents := make([]raftpb.Entry, len(peers))
+	ents := make([]sdraftpb.Entry, len(peers))
 	nodeIDs := make([]uint64, len(peers))
 	for i, p := range peers {
 		nodeIDs[i] = p.ID
-		cc := raftpb.ConfChange{
-			Type:    raftpb.ConfChangeAddNode,
+		cc := sdraftpb.ConfChange{
+			Type:    sdraftpb.ConfChangeAddNode,
 			NodeID:  p.ID,
 			Context: p.Context,
 		}
@@ -446,8 +446,8 @@ func (s *v3Manager) saveWALAndSnap() error {
 		if err != nil {
 			return err
 		}
-		ents[i] = raftpb.Entry{
-			Type:  raftpb.EntryConfChange,
+		ents[i] = sdraftpb.Entry{
+			Type:  sdraftpb.EntryConfChange,
 			Term:  1,
 			Index: uint64(i + 1),
 			Data:  d,
@@ -455,7 +455,7 @@ func (s *v3Manager) saveWALAndSnap() error {
 	}
 
 	commit, term := uint64(len(ents)), uint64(1)
-	if err := w.Save(raftpb.HardState{
+	if err := w.Save(sdraftpb.HardState{
 		Term:   term,
 		Vote:   peers[0].ID,
 		Commit: commit,
@@ -467,12 +467,12 @@ func (s *v3Manager) saveWALAndSnap() error {
 	if berr != nil {
 		return berr
 	}
-	raftSnap := raftpb.Snapshot{
+	raftSnap := sdraftpb.Snapshot{
 		Data: b,
-		Metadata: raftpb.SnapshotMetadata{
+		Metadata: sdraftpb.SnapshotMetadata{
 			Index: commit,
 			Term:  term,
-			ConfState: raftpb.ConfState{
+			ConfState: sdraftpb.ConfState{
 				Nodes: nodeIDs,
 			},
 		},

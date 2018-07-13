@@ -17,7 +17,7 @@ package raft
 import (
 	"errors"
 
-	pb "github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	pb "github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 )
 
 // ErrStepLocalMsg is returned when try to step a local raft message

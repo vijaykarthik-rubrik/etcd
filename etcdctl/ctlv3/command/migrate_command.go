@@ -37,7 +37,7 @@ import (
 	"github.com/vijaykarthik-rubrik/etcd/mvcc/mvccpb"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/pbutil"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 	"github.com/vijaykarthik-rubrik/etcd/wal"
 	"github.com/vijaykarthik-rubrik/etcd/wal/walpb"
 
@@ -172,8 +172,8 @@ func rebuildStoreV2() (v2store.Store, uint64) {
 
 	applier := etcdserver.NewApplierV2(zap.NewExample(), st, cl)
 	for _, ent := range ents {
-		if ent.Type == raftpb.EntryConfChange {
-			var cc raftpb.ConfChange
+		if ent.Type == sdraftpb.EntryConfChange {
+			var cc sdraftpb.ConfChange
 			pbutil.MustUnmarshal(&cc, ent.Data)
 			applyConf(cc, cl)
 			continue
@@ -198,20 +198,20 @@ func rebuildStoreV2() (v2store.Store, uint64) {
 	return st, index
 }
 
-func applyConf(cc raftpb.ConfChange, cl *membership.RaftCluster) {
+func applyConf(cc sdraftpb.ConfChange, cl *membership.RaftCluster) {
 	if err := cl.ValidateConfigurationChange(cc); err != nil {
 		return
 	}
 	switch cc.Type {
-	case raftpb.ConfChangeAddNode:
+	case sdraftpb.ConfChangeAddNode:
 		m := new(membership.Member)
 		if err := json.Unmarshal(cc.Context, m); err != nil {
 			panic(err)
 		}
 		cl.AddMember(m)
-	case raftpb.ConfChangeRemoveNode:
+	case sdraftpb.ConfChangeRemoveNode:
 		cl.RemoveMember(types.ID(cc.NodeID))
-	case raftpb.ConfChangeUpdateNode:
+	case sdraftpb.ConfChangeUpdateNode:
 		m := new(membership.Member)
 		if err := json.Unmarshal(cc.Context, m); err != nil {
 			panic(err)

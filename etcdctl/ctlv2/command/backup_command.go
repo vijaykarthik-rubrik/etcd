@@ -29,7 +29,7 @@ import (
 	"github.com/vijaykarthik-rubrik/etcd/pkg/fileutil"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/idutil"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/pbutil"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 	"github.com/vijaykarthik-rubrik/etcd/wal"
 	"github.com/vijaykarthik-rubrik/etcd/wal/walpb"
 
@@ -118,7 +118,7 @@ func saveSnap(destSnap, srcSnap string) (walsnap walpb.Snapshot) {
 	return walsnap
 }
 
-func loadWAL(srcWAL string, walsnap walpb.Snapshot, v3 bool) (etcdserverpb.Metadata, raftpb.HardState, []raftpb.Entry) {
+func loadWAL(srcWAL string, walsnap walpb.Snapshot, v3 bool) (etcdserverpb.Metadata, sdraftpb.HardState, []sdraftpb.Entry) {
 	w, err := wal.OpenForRead(zap.NewExample(), srcWAL, walsnap)
 	if err != nil {
 		log.Fatal(err)
@@ -146,7 +146,7 @@ func loadWAL(srcWAL string, walsnap walpb.Snapshot, v3 bool) (etcdserverpb.Metad
 	}
 	for i = 0; i < len(ents); i++ {
 		ents[i].Index -= removed
-		if ents[i].Type == raftpb.EntryConfChange {
+		if ents[i].Type == sdraftpb.EntryConfChange {
 			log.Println("ignoring EntryConfChange raft entry")
 			remove()
 			continue

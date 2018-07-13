@@ -18,7 +18,7 @@ import (
 	"io"
 
 	"github.com/vijaykarthik-rubrik/etcd/pkg/ioutil"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 )
 
 // Message is a struct that contains a raft Message and a ReadCloser. The type
@@ -30,13 +30,13 @@ import (
 //
 // User of Message should close the Message after sending it.
 type Message struct {
-	raftpb.Message
+	sdraftpb.Message
 	ReadCloser io.ReadCloser
 	TotalSize  int64
 	closeC     chan bool
 }
 
-func NewMessage(rs raftpb.Message, rc io.ReadCloser, rcSize int64) *Message {
+func NewMessage(rs sdraftpb.Message, rc io.ReadCloser, rcSize int64) *Message {
 	return &Message{
 		Message:    rs,
 		ReadCloser: ioutil.NewExactReadCloser(rc, rcSize),

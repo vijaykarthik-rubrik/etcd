@@ -25,7 +25,7 @@ import (
 	"sync"
 	"time"
 
-	pb "github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	pb "github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 )
 
 // None is a placeholder node ID used when there is no leader.

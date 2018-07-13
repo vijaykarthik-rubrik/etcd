@@ -26,7 +26,7 @@ import (
 	"github.com/vijaykarthik-rubrik/etcd/etcdserver/api/snap"
 	pioutil "github.com/vijaykarthik-rubrik/etcd/pkg/ioutil"
 	"github.com/vijaykarthik-rubrik/etcd/pkg/types"
-	"github.com/vijaykarthik-rubrik/etcd/raft/raftpb"
+	"github.com/vijaykarthik-rubrik/etcd/raft/sdraftpb"
 	"github.com/vijaykarthik-rubrik/etcd/version"
 
 	humanize "github.com/dustin/go-humanize"
@@ -119,7 +119,7 @@ func (h *pipelineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var m raftpb.Message
+	var m sdraftpb.Message
 	if err := m.Unmarshal(b); err != nil {
 		if h.lg != nil {
 			h.lg.Warn(
@@ -233,7 +233,7 @@ func (h *snapshotHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	msgSize := m.Size()
 	receivedBytes.WithLabelValues(types.ID(m.From).String()).Add(float64(msgSize))
 
-	if m.Type != raftpb.MsgSnap {
+	if m.Type != sdraftpb.MsgSnap {
 		if h.lg != nil {
 			h.lg.Warn(
 				"unexpected Raft message type",
